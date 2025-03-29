@@ -18,7 +18,6 @@ public class GiteeProvider
     OkHttpClient client = new OkHttpClient();
     
     RequestBody body = RequestBody.create(JSON.toJSONString(accessTokenDTO), mediaType);
-    System.out.println(JSON.toJSONString(accessTokenDTO));
     Request request = new Request.Builder()
       .url("https://gitee.com/oauth/token")
       .post(body)
