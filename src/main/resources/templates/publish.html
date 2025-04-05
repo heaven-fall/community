@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/bootstrap.min.css"/>
   <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+  <link rel="stylesheet" href="css/community.css"/>
   <script src="js/bootstrap.min.js"></script>
   <title>社区</title>
 </head>
@@ -31,11 +32,10 @@
         <button type="submit" class="btn btn-default">搜索</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-
         <li th:if="${session.user == null}"><a href="https://gitee.com/oauth/authorize?client_id=0f92a34abd0b75956cafee90a63dd6fbb1cceff0e488925339b24ca049b84456&redirect_uri=http://localhost:8080/callback&response_type=code">登录</a></li>
-        <li th:if="${session.user != null}"><a href="/publish">发布</a></li>
+
         <li class="dropdown" th:if="${session.user != null}">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.name}"><span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的 <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">消息</a></li>
             <li><a href="#">个人主页</a></li>
@@ -48,5 +48,35 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div class="container-fluid main">
+  <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+      <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
+      <hr>
+      <form action="/publish" method="post">
+        <div class="form-group">
+          <label for="title">问题标题：</label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="问题标题..." th:value="${title}">
+        </div>
+        <div class="form-group">
+          <label for="description">问题描述：</label>
+          <textarea class="form-control" id="description" name="description" placeholder="问题描述..." rows="10" style="resize:vertical" th:text="${description}"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="tag">添加标签：</label>
+          <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签以,隔开" th:value="${tag}">
+        </div>
+        <span class="alert alert-danger" th:if="${error != null}" th:text="${error}"></span>
+        <button type="submit" class="btn btn-success btn-publish">发布</button>
+      </form>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+      <h3>问题发起指南</h3>
+      问题标题：用精简的语言描述您发布的问题<br>
+      问题描述：详细补充描述您问题的细节<br>
+      选择标签：为您的问题添加标签<br>
+    </div>
+  </div>
+</div>
 </body>
 </html>
